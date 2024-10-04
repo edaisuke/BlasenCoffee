@@ -1,5 +1,4 @@
-﻿using BlasenSignage.Services;
-using Microsoft.Xaml.Behaviors.Core;
+﻿using Microsoft.Xaml.Behaviors.Core;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -11,8 +10,6 @@ namespace BlasenSignage.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-
-        private HttpServerService httpServerService;
 
         private bool topmost = false;
 
@@ -53,8 +50,6 @@ namespace BlasenSignage.ViewModel
             {
                 if (window.DataContext is MainViewModel model)
                 {
-                    model.httpServerService = new HttpServerService();
-                    model.httpServerService.Start();
                 }
             }
         });
@@ -67,7 +62,6 @@ namespace BlasenSignage.ViewModel
             {
                 if (window.DataContext is MainViewModel model)
                 {
-                    model.httpServerService.Stop();
                     window.Close();
                 }
             }

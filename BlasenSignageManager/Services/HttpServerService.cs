@@ -1,5 +1,4 @@
-﻿using BlasenSignage.Services.Http;
-using EmbedIO;
+﻿using EmbedIO;
 using EmbedIO.Files;
 using Swan.Logging;
 using System;
@@ -9,7 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlasenSignage.Services
+namespace BlasenSignageManager.Services
 {
     public class HttpServerService
     {

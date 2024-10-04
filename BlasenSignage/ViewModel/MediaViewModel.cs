@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +31,13 @@ namespace BlasenSignage.ViewModel
         {
             var args = (RoutedEventArgs)obj;
             var media = (MediaElement)args.Source;
-            media.Source = new Uri("C:\\Users\\daisuke\\Downloads\\デジタルサイネージ1001.mp4", UriKind.Relative);
+
+            var location = Assembly.GetEntryAssembly().Location;
+            var directory = Path.GetDirectoryName(location);
+            var source = Path.Combine(directory, "Media");
+            var sourcePath = Path.Combine(source, "デジタルサイネージ1001.mp4");
+
+            media.Source = new Uri(sourcePath, UriKind.RelativeOrAbsolute);
             media.Play();
         });
 
