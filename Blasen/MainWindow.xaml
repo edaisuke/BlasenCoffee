@@ -1,0 +1,47 @@
+﻿<Window x:Class="Blasen.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local="clr-namespace:Blasen"
+        xmlns:behavior="clr-namespace:Blasen.Behavior"
+        mc:Ignorable="d"
+        d:DataContext="local:ViewModel"
+        x:Name="window"
+        WindowStyle="None"
+        Title="Blasen"
+        Height="450" Width="800"
+        Background="White"
+        Icon="/logo.png"
+        Cursor="None">
+
+    <Window.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="終了" Command="{Binding Exit}" />
+        </ContextMenu>
+    </Window.ContextMenu>
+    
+    <Grid Margin="{Binding Margin}" Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Image Grid.Row="0" Source="/logo.png" x:Name="ImageUpper">
+            <i:Interaction.Behaviors>
+                <behavior:NameSpaceInheritBehavior />
+            </i:Interaction.Behaviors>
+            <Image.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="開く" Command="{Binding Open}"
+                              CommandParameter="{Binding ElementName=ImageUpper}" />
+                </ContextMenu>
+            </Image.ContextMenu>
+        </Image>
+        <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" Background="Black" />
+        <Image Grid.Row="2" Source="/logo.png" x:Name="ImageLower" />
+
+    </Grid>
+</Window>

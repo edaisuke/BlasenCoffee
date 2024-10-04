@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EmbedIO" Version="3.5.2" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+    <PackageReference Include="NetCoreServer" Version="8.0.7" />
+  </ItemGroup>
+
+</Project>

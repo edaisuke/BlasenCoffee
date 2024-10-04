@@ -1,0 +1,81 @@
+﻿<Window x:Class="BlasenSignage.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local="clr-namespace:BlasenSignage"
+        xmlns:behavior="clr-namespace:BlasenSignage.Behavior"
+        xmlns:vm="clr-namespace:BlasenSignage.ViewModel"
+        mc:Ignorable="d"
+        x:Name="window"
+        Title="ブラセン デジタルサイネージ"
+        Icon="/Logo.png"
+        Background="White"
+        WindowStyle="None"
+        Cursor="{Binding Cursor}"
+        Topmost="{Binding Topmost}"
+        Height="800" Width="640">
+    
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{Binding ElementName=window}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <i:Interaction.Behaviors>
+        <behavior:NameSpaceInheritBehavior />
+    </i:Interaction.Behaviors>
+    <Window.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="最前面に表示" IsChecked="{Binding Topmost}" Command="{Binding ToggleTopmostCommand}" CommandParameter="{Binding ElementName=window}" />
+            <MenuItem Header="カーソル表示" IsChecked="{Binding IsShowCursor}" Command="{Binding ToggleCurosrCommand}" CommandParameter="{Binding ElementName=window}" />
+            <Separator />
+            <MenuItem Header="終了" Command="{Binding ExitCommand}" CommandParameter="{Binding ElementName=window}" />
+        </ContextMenu>
+    </Window.ContextMenu>
+    
+    <Grid Margin="15" Background="Black" Cursor="">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{Binding Row1Height}" />
+            <RowDefinition Height="{Binding Row2Height}" />
+            <RowDefinition Height="{Binding Row3Height}" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+
+        <!--<GridSplitter Grid.Row="0" Grid.Column="1" Width="5" VerticalAlignment="Stretch" />-->
+
+        <GridSplitter Grid.Row="1" Grid.ColumnSpan="2" Height="{Binding RowSplitterHeight}" HorizontalAlignment="Stretch" Background="Black" />
+        
+        <!--<GridSplitter Grid.Row="2" Grid.Column="1" Width="5" VerticalAlignment="Stretch" />-->
+
+        <MediaElement Grid.Row="0" Grid.ColumnSpan="2"
+                      LoadedBehavior="Manual" UnloadedBehavior="Manual">
+            <MediaElement.DataContext>
+                <vm:MediaViewModel />
+            </MediaElement.DataContext>
+            <i:Interaction.Behaviors>
+            </i:Interaction.Behaviors>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction Command="{Binding LoadedCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MediaEnded">
+                    <i:InvokeCommandAction Command="{Binding MediaEndedCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </MediaElement>
+
+        <MediaElement Grid.Row="2" Grid.ColumnSpan="1" Source="/Logo.png" />
+
+    </Grid>
+</Window>
